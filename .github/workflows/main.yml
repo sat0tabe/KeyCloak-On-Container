@@ -1,0 +1,26 @@
+name: Linux Container KeyCloak
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: azure/docker-login@v1
+      with:
+        login-server: kscauthn.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - run: |
+        docker build ./custom-theme/ -t kscauthn.azurecr.io/kscauthn:${{ github.sha }}
+        docker push kscauthn.azurecr.io/kscauthn:${{ github.sha }}     
+
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'kscauthn2'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: 'kscauthn.azurecr.io/kscauthn:${{ github.sha }}'
