@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:latest as builder
+FROM quay.io/keycloak/keycloak:21.1.1 as builder
 
 WORKDIR /opt/keycloak
 
@@ -7,7 +7,7 @@ RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysi
 
 RUN /opt/keycloak/bin/kc.sh build
 
-FROM quay.io/keycloak/keycloak:latest
+FROM quay.io/keycloak/keycloak:21.1.1
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 COPY ./themes/my-theme/ /opt/keycloak/themes/my-theme
