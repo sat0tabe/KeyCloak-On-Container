@@ -11,5 +11,6 @@ FROM quay.io/keycloak/keycloak:latest
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 COPY ./themes/my-theme/ /opt/keycloak/themes/my-theme
+COPY keycloak-2fa-email-authenticator-v0.4-KC21.1.1.jar /opt/keycloak/providers/
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
