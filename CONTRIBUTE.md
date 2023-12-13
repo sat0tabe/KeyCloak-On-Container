@@ -23,4 +23,4 @@ sendgrid
 HOST:smtp.sendgrid.net
 PORT:25
 ID:apikey
-PW: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
+PW:
