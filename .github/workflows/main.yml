@@ -16,7 +16,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - run: |
-          docker build ./emailotp/ -t kscauthn.azurecr.io/kscauthn:${{ github.sha }}
+          docker build ./customized-keycloak/ -t kscauthn.azurecr.io/kscauthn:${{ github.sha }}
           docker push kscauthn.azurecr.io/kscauthn:${{ github.sha }}
 
       - uses: azure/webapps-deploy@v2
